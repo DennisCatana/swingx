@@ -61,6 +61,14 @@ public class Login {
         return !username.isEmpty() && !password.isEmpty();
     }
 
+    private static Login instanciaLogin; // Variable estática para almacenar la única instancia de Login
+
+    public static Login getInstancia() {
+        if (instanciaLogin == null) {
+            instanciaLogin = new Login();
+        }
+        return instanciaLogin;
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

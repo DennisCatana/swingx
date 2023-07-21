@@ -1,9 +1,5 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
+import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,10 +14,31 @@ public class Registro {
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí puedes implementar la lógica para registrar al usuario
-                // Por ahora, simplemente cerraremos la ventana de registro
+                String nomUsuario = nombreR.getText();
+                String contUsuario = new String(contra.getPassword());
                 JFrame registroFrame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
                 registroFrame.dispose();
+
+                try (ObjectOutputStream outputStream = new ObjectOutputStream
+                    (new FileOutputStream(nomUsuario + ".dat"))) {
+                    Datos userData = new Datos(nomUsuario, contUsuario);
+                    outputStream.writeObject(userData);
+
+                    JFrame registro = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
+                    registro.dispose();
+                    // Mostrar el frame de login nuevamente
+                    JFrame loginFrame = new JFrame("Login");
+                    Login loginVentana = new Login();
+                    loginFrame.setContentPane(loginVentana.rootPanel);
+                    loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    loginFrame.pack();
+                    loginFrame.setVisible(true);
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    // Mostrar mensaje de error al guardar los datos
+                    JOptionPane.showMessageDialog(rootPanel, "Error al guardar los datos");
+                }
             }
         });
     }
@@ -38,4 +55,15 @@ public class Registro {
             }
         });
     }
+    private static class Datos implements Serializable {
+        private String name;
+        private String password;
+
+        public Datos(String username, String password) {
+            this.name = username;
+            this.password = password;
+        }
+    }
+
 }
+
