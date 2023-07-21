@@ -33,7 +33,6 @@ public class Registro {
                     loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     loginFrame.pack();
                     loginFrame.setVisible(true);
-
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     // Mostrar mensaje de error al guardar los datos
@@ -53,6 +52,7 @@ public class Registro {
                 frame.pack();
                 frame.setVisible(true);
             }
+
         });
     }
     private static class Datos implements Serializable {
