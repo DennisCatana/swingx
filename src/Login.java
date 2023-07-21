@@ -37,12 +37,30 @@ public class Login {
                 }
             }
         });
+
+        registrarseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cerrar la ventana actual de login
+                JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
+                loginFrame.setVisible(false);
+
+                // Abrir la ventana de registro
+                JFrame registroFrame = new JFrame("Registro");
+                Registro registroVentana = new Registro();
+                registroFrame.setContentPane(registroVentana.rootPanel);
+                registroFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                registroFrame.pack();
+                registroFrame.setVisible(true);
+            }
+        });
     }
 
     // Credenciales
     private boolean isValidCredentials(String username, String password) {
         return !username.isEmpty() && !password.isEmpty();
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

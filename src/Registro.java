@@ -3,10 +3,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Registro {
-    public Container rootPanel;
-    private JPanel Registro; // Corrección en el nombre de la variable registro
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class Registro {
+    public JPanel rootPanel;
     private JTextField nombreR;
     private JButton registrarseButton;
     private JPasswordField contra;
@@ -15,25 +18,24 @@ public class Registro {
         registrarseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Utiliza la variable rootPanel declarada como miembro de la clase
-                JFrame frame1 = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
-                frame1.setVisible(false);
-
-                JFrame frame2 = new JFrame("Login");
-                Login ventanaPrincipal = new Login();
-                frame2.setContentPane(ventanaPrincipal.rootPanel);
-                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame2.pack();
-                frame2.setVisible(true);
+                // Aquí puedes implementar la lógica para registrar al usuario
+                // Por ahora, simplemente cerraremos la ventana de registro
+                JFrame registroFrame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
+                registroFrame.dispose();
             }
         });
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Registro");
-        frame.setContentPane(new Registro().Registro); // Corrección en el nombre de la variable registro
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                JFrame frame = new JFrame("Registro");
+                frame.setContentPane(new Registro().rootPanel);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.pack();
+                frame.setVisible(true);
+            }
+        });
     }
 }
