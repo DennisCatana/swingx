@@ -5,7 +5,7 @@ Integrantes: Cataña Dennis, Ruiz Erick y Simba Cristian
 Se crea una acción para el botón de registro. Esta cierra la ventana del login y nos muestra la ventana de registro para insertar datos que despues serán guardados.<br>
 <img width="560" alt="image" src="https://github.com/DennisCatana/swingx/assets/117742977/b484c71d-148c-405e-a9f1-2dc9f9ac1b03"><br>
 Se usa una clase la cual nos va ayudar para obtener los datos.<br>
-<img width="359" alt="image" src="https://github.com/DennisCatana/swingx/assets/117742977/4b71c69a-0476-4777-bdff-8f67429e6644">
+<img width="359" alt="image" src="https://github.com/DennisCatana/swingx/assets/117742977/4b71c69a-0476-4777-bdff-8f67429e6644"><br>
 En la clase registro se va a obtener los datos de nombre y contraseña del usuario.<br>
 <img width="577" alt="image" src="https://github.com/DennisCatana/swingx/assets/117742977/6e4045fb-c2f1-4ff7-8dff-dfb41bf7f04a"><br>
 Los datos que se obtienen se los guarda en un archivo.dat el cual como nombre va a tener el nombre del usuario. También, si todo sale correcto se regresa a la ventana del login.<br>
