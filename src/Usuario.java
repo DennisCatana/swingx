@@ -5,14 +5,9 @@ import java.awt.event.ActionListener;
 public class Usuario {
     public JPanel rootPanel;
     private JButton salirButton;
-    private JTextField datostxt;
+    public JTextField datostxt;
 
     public Usuario(){
-        Login datos = new Login();
-        String usuario = datos.username;
-        String contra = datos.password;
-        datostxt.setText(usuario + " " + contra);
-        System.out.println(usuario + " " + contra);
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -20,7 +15,7 @@ public class Usuario {
                 frame1 = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
                 frame1.setVisible(false);
 
-                JFrame frame2 = new JFrame("Ventana 1");
+                JFrame frame2 = new JFrame("Login");
                 Login ventanaPrincipal = new Login ();
                 frame2.setContentPane(ventanaPrincipal.rootPanel);
                 frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

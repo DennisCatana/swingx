@@ -35,17 +35,20 @@ public class Login {
                         if (info != null){
                             String usuariov = info.getusuario();
                             String contrav = new String(info.getContrasenia());
-                            System.out.println(usuariov + " " + contrav + " " + password);
+                            //System.out.println(usuariov + " " + contrav + " " + password); PROBADOR PARA COMPARAR CREDENCIALES
                             if(username.equals(usuariov) && password.equals(contrav)){
-                                System.out.println("entro");
+                                System.out.println("entro"); // PROBAR ENTRA A ESTA CONDICION
                                 us = true;
                                 ca = true;
                                 break;
                             }
                             else{
-                                System.out.println("entro-2");
+                                System.out.println("entro-2"); // PROBAR SI ENTRA A ESTA OTRA
+                                usuario.setText("");
+                                contra.setText("");
                             }
                         }
+
                         else{
                             cont = false;
 
@@ -57,19 +60,17 @@ public class Login {
 
                         JFrame usserFrame = new JFrame("USUARIO");
                         Usuario usserventana = new Usuario();
+                        usserventana.datostxt.setText(username);
                         usserFrame.setContentPane(usserventana.rootPanel);
                         usserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         usserFrame.pack();
                         usserFrame.setVisible(true);
                     }
-                    if(us == false && ca == false){
-                        usuario.setText("");
-                        contra.setText("");
-                        JOptionPane.showMessageDialog(rootPanel, "Credenciales inválidas. Inténtalo de nuevo.");
-                    }
+
                 } catch (FileNotFoundException ex) {
                     throw new RuntimeException(ex);
                 } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(rootPanel, "Credenciales inválidas. Inténtalo de nuevo.");
                 } catch (ClassNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
