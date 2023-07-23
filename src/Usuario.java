@@ -1,14 +1,18 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Usuario {
-    public Container rootPanel;
-    private JPanel Usuario;
+    public JPanel rootPanel;
     private JButton salirButton;
+    private JTextField datostxt;
 
     public Usuario(){
+        Login datos = new Login();
+        String usuario = datos.username;
+        String contra = datos.password;
+        datostxt.setText(usuario + " " + contra);
+        System.out.println(usuario + " " + contra);
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -26,13 +30,4 @@ public class Usuario {
             }
         });
     }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Usuario");
-        frame.setContentPane(new Usuario().Usuario);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
 }

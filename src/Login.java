@@ -10,31 +10,70 @@ public class Login {
     private JButton registrarseButton;
     private JPasswordField contra;
     JPanel rootPanel;
+    private boolean cont = true;
+    private boolean us;
+    private boolean ca;
+    public String username;
+    public String password;
 
     public Login() {
+
         iniciarSesionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Verificar las credenciales (aquí deberías implementar tu lógica de autenticación)
-                String username = usuario.getText();
-                String password = new String(contra.getPassword());
+                username = usuario.getText();
+                password = new String(contra.getPassword());
+                us = false;
+                ca = false;
 
-                if (isValidCredentials(username, password)) {
-                    // Si las credenciales son válidas, ocultar el frame actual
-                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
-                    frame.setVisible(false);
+                try{
+                    FileInputStream dat = new FileInputStream("USUARIOS.dat");
+                    while(cont){
+                        ObjectInputStream oos = new ObjectInputStream(dat);
+                        datosUsuarios info = (datosUsuarios) oos.readObject();
+                        if (info != null){
+                            String usuariov = info.getusuario();
+                            String contrav = new String(info.getContrasenia());
+                            System.out.println(usuariov + " " + contrav + " " + password);
+                            if(username.equals(usuariov) && password.equals(contrav)){
+                                System.out.println("entro");
+                                us = true;
+                                ca = true;
+                                break;
+                            }
+                            else{
+                                System.out.println("entro-2");
+                            }
+                        }
+                        else{
+                            cont = false;
 
-                    // Mostrar el frame de usuario
-                    JFrame userFrame = new JFrame("Usuario");
-                    Usuario userPanel = new Usuario();
-                    userFrame.setContentPane(userPanel.rootPanel);
-                    userFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    userFrame.pack();
-                    userFrame.setVisible(true);
-                } else {
-                    // Mostrar mensaje de error de credenciales inválidas
-                    JOptionPane.showMessageDialog(rootPanel, "Credenciales inválidas. Inténtalo de nuevo.");
+                        }
+                    }
+                    if( us == true && ca == true){
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(rootPanel);
+                        frame.setVisible(false);
+
+                        JFrame usserFrame = new JFrame("USUARIO");
+                        Usuario usserventana = new Usuario();
+                        usserFrame.setContentPane(usserventana.rootPanel);
+                        usserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        usserFrame.pack();
+                        usserFrame.setVisible(true);
+                    }
+                    if(us == false && ca == false){
+                        usuario.setText("");
+                        contra.setText("");
+                        JOptionPane.showMessageDialog(rootPanel, "Credenciales inválidas. Inténtalo de nuevo.");
+                    }
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                } catch (ClassNotFoundException ex) {
+                    throw new RuntimeException(ex);
                 }
+
             }
         });
 
@@ -55,12 +94,6 @@ public class Login {
             }
         });
     }
-
-    // Credenciales
-    private boolean isValidCredentials(String username, String password) {
-        return !username.isEmpty() && !password.isEmpty();
-    }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
